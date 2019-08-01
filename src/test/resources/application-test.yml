@@ -3,12 +3,21 @@ server:
     max-http-post-size: 0
   port: 8080
   servlet:
-    context-path: /autossav
+    context-path: /freitx
 
 
-h2:
-  console:
-    enabled: true
+spring:
+  datasource:
+    url: jdbc:mysql://172.168.2.16:3307/freitx?characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&serverTimezone=UTC
+    username: root
+    password: root@Freitx.com
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 30
+      auto-commit: true
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      connection-test-query: SELECT 1
 
 test:
   data:
@@ -30,16 +39,21 @@ hystrix:
           thread:
             timeoutInMilliseconds: 300000
 
-autossav:
-  accountServer: http://172.168.2.16:9980/auth
-  uploadServer: http://172.168.2.16:9982/upload
-  pushServer: http://172.168.2.16:9983/push
+
+freitx:
+  accountServer: http://172.168.2.16:9880/auth
+  uploadServer: http://172.168.2.16:9882/upload
+  
+
+
+
+
 
 core:
   debug: true  #调试开关
   sendgrid:   #发邮件配置
     api: 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  #邮件接口api配置
-    sendby: admin@autossav.com
+    sendby: admin@freitx.com
     templates:                                                      #模板配置
       REGISTER_NOTIFY: d-6741c33e19484e4ab44bb155790cc23f           #注册后提醒邮件
       REGISTER_EMAIL: d-32dc62514a6a4fc4b0e8c5650d828133            #注册登录邮箱 发送验证码
